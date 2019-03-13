@@ -2,7 +2,7 @@
 Arts vibrancy index calculated using metrics and measures outlined in [NCAR Arts Vibrancy Index IV](https://sites.smu.edu/Meadows/NCAR%20VibrancyIndex%20July2018_7.9.pdf)
 
 
-# Arts Providers
+# [Arts Providers](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/arts-providers)
 County and ZIP code Business Pattern data collected and disseminated by the US Census Bureau. Arts and cultural organization data aggregated from IRS 990s.
 ## Independent artists
 Freelance artists primarily engaged in performing in artistic productions, in creating artistic and cultural works or productions, or in providing technical expertise necessary for these productions, aggregated at the zip code level
@@ -13,7 +13,7 @@ Number of nonprofit organizations in the museum, arts education, community, danc
 ## Arts, culture & entertainment firms
 Number of arts, culture, and entertainment firms, weighted for size and aggregated at the zip code level. Includes museums, theaters, dance companies, opera companies, music groups and performers, music producers and presenters, fine arts schools, and recording, motion picture, and video production companies
 
-# Arts Dollars
+# [Arts Dollars](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/arts-dollars)
 Data aggregated from IRS 990s, DataArts’ Cultural Data Profile, and Theatre Communications Group
 ## Program revenue
 All revenue earned due to people participating in the activities of nonprofit arts and cultural organizations
