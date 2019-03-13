@@ -24,7 +24,7 @@ All expenses of nonprofit arts and cultural organizations
 ## Total compensation
 All payment to staff and artists by nonprofit cultural organizations
 
-# Government Support
+# [Government Support](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/government-support)
 Data collected and disseminated by the National Endowment for the Arts, Institute of Museum and Library Services, and National Assembly of State Arts Agencies
 ## State arts dollars
 All state arts dollar funding in the community
