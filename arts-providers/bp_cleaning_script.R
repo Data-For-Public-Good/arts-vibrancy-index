@@ -6,7 +6,7 @@ library(tidyr)
 library(plyr)
 
 # import NYC zip code file
-zip <- read.csv("zipcodes.csv", header = FALSE)
+zip <- read.csv("~/Desktop/arts-vibrancy-index/zipcodes.csv", header = FALSE)
 
 # import all business pattern data files
 bp <- lapply(Sys.glob("BP_*.csv"), read.csv)
