@@ -4,6 +4,7 @@ setwd("~/Desktop/arts-vibrancy-index/government-support/raw")
 # load packages
 library(tidyr)
 library(plyr)
+library(dplyr)
 
 # import and merge state funding data
 state <- lapply(Sys.glob("NASAA_*.csv"), read.csv)
@@ -11,20 +12,16 @@ state <- do.call(rbind.data.frame, state)
 
 # remove grantor and rename columns
 state <- state[,-5]
-state <- rename(state, c("Zip.Code"="zip","Fiscal.Year"="year","No..of.Awards"="awards","Grant.Dollars"="dollars"))
+colnames(state) <- c("zip", "year","state_awards","state_dollars")
 
 # convert dollars to numeric and remove dollar and commas
-state$dollars <- as.numeric(gsub("[\\$,]", "", state$dollars))
+state$state_dollars <- as.numeric(gsub("[\\$,]", "", state$state_dollars))
 
 # sum awards and dollars by year for each zip code
-library(dplyr)
 state <- state %>%
-  select(zip, year, awards, dollars) %>%
+  select(zip, year, state_awards, state_dollars) %>%
   group_by(zip, year) %>%
-  summarise(awards = sum(awards), dollars = sum(dollars))
-
-# export state data to csv
-write.csv(state, file = "~/Desktop/arts-vibrancy-index/government-support/state_clean.csv", row.names = FALSE)
+  summarise(state_awards = sum(state_awards), state_dollars = sum(state_dollars))
 
 # import NEA and IMLS data
 IMLS <- read.csv("IMLS_Awarded_Grants_Search_NY_03-13-2019.csv")
@@ -35,13 +32,12 @@ IMLS <- IMLS[,c(4,7,8)]
 NEA <- NEA[,c(8,10,12)]
 
 # rename columns (must detach dplyr package first)
-detach("package:dplyr", unload=TRUE)
-IMLS <- rename(IMLS, c("zip_added"="zip","Fiscal.Year"="year","Award"="dollars"))
-NEA <- rename(NEA, c("Zip"="zip","Fiscal.Year"="year","Grant.Amount"="dollars"))
+colnames(IMLS) <- c("zip","year","federal_dollars")
+colnames(NEA) <- c("zip","year","federal_dollars")
 
 # convert dollars to numeric and remove dollar and commas 
-IMLS$dollars <- as.numeric(gsub("[\\$,]", "", IMLS$dollars))
-NEA$dollars <- as.numeric(gsub("[\\$,]", "", NEA$dollars))
+IMLS$federal_dollars <- as.numeric(gsub("[\\$,]", "", IMLS$federal_dollars))
+NEA$federal_dollars <- as.numeric(gsub("[\\$,]", "", NEA$federal_dollars))
 
 # remove rows with NAs
 IMLS <- drop_na(IMLS)
@@ -55,11 +51,18 @@ NEA$zip <- as.integer(NEA$zip)
 federal <- rbind(NEA,IMLS)
 
 # sum awards and dollars by year for each zip code
-library(dplyr)
 federal <- federal %>%
-  select(zip, year, dollars) %>%
+  select(zip, year, federal_dollars) %>%
   group_by(zip, year) %>%
-  summarise(awards = length(dollars), dollars = sum(dollars))
+  summarise(federal_awards = length(federal_dollars), federal_dollars = sum(federal_dollars))
+
+# save only rows with years 2005-2015
+federal <- federal[federal$year %in% c(2005:2015),]
+state <- state[state$year %in% c(2005:2015),]
+
+# merge state and federal into a single file
+gov <- merge(federal, state, all = TRUE)
+gov[is.na(gov)] <- 0
 
 # export federal data to csv
-write.csv(federal, file = "~/Desktop/arts-vibrancy-index/government-support/federal_clean.csv", row.names = FALSE)
+write.csv(gov, file = "~/Desktop/arts-vibrancy-index/government-support/government_clean.csv", row.names = FALSE)
