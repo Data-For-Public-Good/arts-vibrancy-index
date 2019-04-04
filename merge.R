@@ -18,4 +18,4 @@ arts_vibrancy <- merge(arts_vibrancy, government, all = TRUE)
 arts_vibrancy[is.na(arts_vibrancy)] <- 0
 
 # export raw arts vibrancy data to csv
-write.csv(gov, file = "~/Desktop/arts-vibrancy-index/index_raw.csv", row.names = FALSE)
+write.csv(arts_vibrancy, file = "~/Desktop/arts-vibrancy-index/index_raw.csv", row.names = FALSE)
