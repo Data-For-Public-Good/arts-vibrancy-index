@@ -36,3 +36,6 @@ Number of state arts grants awarded in the community
 All NEA and IMLS dollar funding in the community
 ## Federal arts grants
 Number of NEA and IMLS grants awarded in the community
+
+# [Other](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/other)
+List of NYC zip codes used to filter data and census data used to weight measures
