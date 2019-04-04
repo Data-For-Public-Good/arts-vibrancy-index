@@ -3,20 +3,22 @@ Arts vibrancy index calculated using metrics and measures outlined in [NCAR Arts
 
 
 # [Arts Providers](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/arts-providers)
-County and ZIP code Business Pattern data collected and disseminated by the US Census Bureau. Arts and cultural organization data aggregated from IRS 990s.
+ZIP code Business Pattern data collected and disseminated by the US Census Bureau. Arts and cultural organization data aggregated from IRS 990s.
 ## Independent artists
 Freelance artists primarily engaged in performing in artistic productions, in creating artistic and cultural works or productions, or in providing technical expertise necessary for these productions, aggregated at the zip code level
 ## Arts and culture employees
-Number of people employed by the museum, historical site, theater, dance, music, opera, and other performing arts sectors, as salaried employees or independent contractors, aggregated at the county level
+~~Number of people employed by the museum, historical site, theater, dance, music, opera, and other performing arts sectors, as salaried employees or independent contractors, aggregated at the county level~~
+Not available at zip code level so removed from our index
 ## Arts and cultural organizations
 Number of nonprofit organizations in the museum, arts education, community, dance, music, opera, performing arts center, orchestra, theater, multidisciplinary performing arts, or arts alliance and service organization sectors, aggregated at the zip code level
 ## Arts, culture & entertainment firms
 Number of arts, culture, and entertainment firms, weighted for size and aggregated at the zip code level. Includes museums, theaters, dance companies, opera companies, music groups and performers, music producers and presenters, fine arts schools, and recording, motion picture, and video production companies
 
 # [Arts Dollars](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/arts-dollars)
-Data aggregated from IRS 990s, DataArts’ Cultural Data Profile, and Theatre Communications Group
-## Program revenue
-All revenue earned due to people participating in the activities of nonprofit arts and cultural organizations
+Data aggregated from IRS 990s
+## Total revenue
+~~All revenue earned due to people participating in the activities of nonprofit arts and cultural organizations~~
+Original index uses program revenue, but this information is missing from some organizations so we use total revenue instead
 ## Contributed revenue
 All revenue from contributions to nonprofit arts and cultural organizations (includes public funding)
 ## Total expenses
