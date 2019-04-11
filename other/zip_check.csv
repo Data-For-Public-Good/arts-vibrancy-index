@@ -1,0 +1,29 @@
+zip,type,new_zip,notes
+10008,PO Box,10007,USPS location search
+10015,retired,remove,NYT article (https://www.nytimes.com/2002/08/11/nyregion/fyi-325279.html)
+10101,PO Box,10019,USPS location search
+10108,PO Box,10036,USPS location search
+10113,PO Box,10011,USPS location search
+10116,PO Box,10001,USPS location search
+10125,Unique,10022,USPS location search
+10129,PO Box,10018,USPS location search
+10150,PO Box,10022,USPS location search
+10156,PO Box,10016,USPS location search
+10159,PO Box,10010,USPS location search
+10163,PO Box,10017,USPS location search
+10185,PO Box,10020,USPS location search
+10272,PO Box,10038,USPS location search
+10276,PO Box,10003,USPS location search
+11202,PO Box,11201,USPS location search
+11242,????,11201,USPS location search
+11243,????,11217,USPS location search
+11245,Unique,11201,USPS location search
+11247,PO Box,11216,USPS location search
+11352,PO Box,11355,USPS location search
+11424,PO Box,11375,USPS location search
+11439,Unique,11366,USPS location search
+11695,PO Box,11691,USPS location search
+10065,UES,NA,Erroneously not included in original zip-- need to request state data and rerun scripts
+10075,UES,NA,Erroneously not included in original zip-- need to request state data and rerun scripts
+10286,Unique,10007,USPS location search
+11005,"Floral Park, Queens",NA,Erroneously not included in original zip-- need to request state data and rerun scripts
