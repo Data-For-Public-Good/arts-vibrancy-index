@@ -23,9 +23,11 @@ state <- state %>%
   group_by(zip, year) %>%
   summarise(state_awards = sum(state_awards), state_dollars = sum(state_dollars))
 
-# import NEA and IMLS data
+# import NEA, IMLS, and zip code data
 IMLS <- read.csv("IMLS_Awarded_Grants_Search_NY_03-13-2019.csv")
 NEA <- read.csv("NEAgrantsearch_1998-2019_30mi_10016.csv")
+zip_new <- read.csv("~/Desktop/arts-vibrancy-index/other/zipcodes_new.csv")
+colnames(zip_new) <- "zip"
 
 # remove unnecessary columns from NEA and IMLS data sets
 IMLS <- IMLS[,c(4,7,8)]
@@ -63,6 +65,9 @@ state <- state[state$year %in% c(2005:2015),]
 # merge state and federal into a single file
 gov <- merge(federal, state, all = TRUE)
 gov[is.na(gov)] <- 0
+
+# remove rows with non-NYC zip codes
+gov <- gov[gov$zip %in% zip_new$zip,]
 
 # export federal data to csv
 write.csv(gov, file = "~/Desktop/arts-vibrancy-index/government-support/government_clean.csv", row.names = FALSE)
