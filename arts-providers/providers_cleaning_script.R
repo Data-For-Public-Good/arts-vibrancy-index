@@ -7,7 +7,7 @@ library(plyr)
 library(dplyr)
 
 # import NYC zip code file
-zip <- read.csv("~/Desktop/arts-vibrancy-index/other/zipcodes.csv", header = FALSE)
+zip <- read.csv("~/Desktop/arts-vibrancy-index/other/zipcodes_new.csv", header = FALSE)
 
 # import all business pattern data files
 providers <- lapply(Sys.glob("BP_*.csv"), read.csv)
