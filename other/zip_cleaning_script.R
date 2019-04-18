@@ -91,5 +91,5 @@ index <- index %>%
   )
 
 # export to csv
-write.csv(index, file = "~/Desktop/arts-vibrancy-index/other/index_clean_raw.csv", row.names = FALSE)
-write.csv(population, file = "~/Desktop/arts-vibrancy-index/other/population_zipmap.csv", row.names = FALSE)
+write.csv(index, file = "~/Desktop/arts-vibrancy-index/index_clean_raw.csv", row.names = FALSE)
+write.csv(population, file = "~/Desktop/arts-vibrancy-index/population_zipmap.csv", row.names = FALSE)
