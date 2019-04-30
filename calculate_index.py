@@ -5,6 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import numpy as np
 import geopandas as gpd
+import pickle
 
 df = pd.read_csv('index_raw.csv')
 pop = pd.read_csv('other/census_clean.csv')
@@ -29,6 +30,13 @@ for year in year_df_dict.keys():
     year_df_dict[year] = year_df_dict[year].merge(pop, on = ['zip'])
     year_df_dict[year].dropna(inplace = True)
     year_df_dict[year].reset_index(drop = True, inplace = True)
+
+# adding the total nonprofits data
+with open('count_dict.pkl', 'rb') as filename:
+    count_dict = pickle.load(filename)
+for year in year_df_dict.keys():
+    year_df_dict[year]['total_nonprofits'] = year_df_dict[year]['zip'].map(count_dict[year])
+
 
 '''
 These are zipcodes I looked up on a map.  The ones on the left are really small, maybe just for one
@@ -115,14 +123,21 @@ for year in year_df_dict.keys():
 
 year_df_dict_copy = year_df_dict.copy()
 for year in year_df_dict_copy.keys():
-    year_df_dict_copy[year] = year_df_dict_copy[year].drop(['year', 'population'], axis = 'columns')
+    year_df_dict_copy[year] = year_df_dict_copy[year].drop(['year', 'population', 'total_nonprofits'], axis = 'columns')
     year_df_dict_copy[year] = year_df_dict_copy[year].rename(index = str, columns = {variable:variable + '_raw' for variable in index_variables})
 
-# making the data per capita by dividing by population
+'''
+In the next part I standardize the data by a couple factors.  On my first attempt I standardized everything by population, but this led
+to some issues related to the fact that a lot of zipcodes have low population but a lot of office buildings.  So instead, I'm now standardizing by
+the total number of nonprofits, taken from the irs data that we have.  Something like total square footage of office space or something like that 
+might be better but harder to get.  I'm still going to standardize independent artists by population, but everything else is now by the number of
+nonprofits, which should hopefully be a good proxy for office space.
+'''
 for year in year_df_dict.keys():
     copy_df = year_df_dict[year].copy()
-    for variable in index_variables:
-        year_df_dict[year][variable] = copy_df[variable] / copy_df.population 
+    year_df_dict[year]['independent_artists'] = copy_df['independent_artists'] / copy_df.population 
+    for variable in [x for x in index_variables if x is not 'independent_artists']:
+        year_df_dict[year][variable] = copy_df[variable] / copy_df['total_nonprofits']
 
 # standard normal scaling
 sns_dict = year_df_dict.copy()
@@ -132,6 +147,7 @@ for year in sns_dict.keys():
     snscaled['zip'] = year_df_dict[year].zip
     snscaled['year'] = year_df_dict[year].year
     snscaled['population'] = year_df_dict[year].population
+    snscaled['total_nonprofits'] = year_df_dict[year]['total_nonprofits']
     snscaled = snscaled[year_df_dict[year].columns.values]
     sns_dict[year] = snscaled
 
