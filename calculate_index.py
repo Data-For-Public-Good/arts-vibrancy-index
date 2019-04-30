@@ -67,10 +67,16 @@ zip_transformation = {10165: 10017,
                      11359:11360,
                      11371:11369
                      }
+# these are some more zipcodes from natalie's file
+more_zips = list(map(int, ["10041","10048","10104","10105","10106","10107","10118","10121","10122","10123","10151","10155","10158","10166","10175","10176","10178","10286"]))
+more_zips_new = list(map(int, ["10004","10007","10019","10019","10019","10019","10001","10001","10001","10018","10022","10022","10016", "10017","10036","10036","10017","10007"]))
+for old_zipcode, new_zipcode in zip(more_zips, more_zips_new):
+    zip_transformation[old_zipcode] = new_zipcode
 zip_check = pd.read_csv('other/zip_check.csv')
 zip_check.drop(zip_check[zip_check.zip == 10015].index, inplace = True) # the one Natalie said to drop
 # these three were missing, they have text values that we don't want in our dictionary for now
 # when they are added back in we'll need to drop these three lines
+# update, they were added back in but we need to keep these three lines anyway because they have nan values in the zip_check csv, it's not a problem to keep them
 zip_check.drop(zip_check[zip_check.zip == 10065].index, inplace = True)
 zip_check.drop(zip_check[zip_check.zip == 10075].index, inplace = True)
 zip_check.drop(zip_check[zip_check.zip == 11005].index, inplace = True)
@@ -107,6 +113,11 @@ def replace_zips(df):
 for year in year_df_dict.keys():
     year_df_dict[year] = replace_zips(year_df_dict[year])
 
+year_df_dict_copy = year_df_dict.copy()
+for year in year_df_dict_copy.keys():
+    year_df_dict_copy[year] = year_df_dict_copy[year].drop(['year', 'population'], axis = 'columns')
+    year_df_dict_copy[year] = year_df_dict_copy[year].rename(index = str, columns = {variable:variable + '_raw' for variable in index_variables})
+
 # making the data per capita by dividing by population
 for year in year_df_dict.keys():
     copy_df = year_df_dict[year].copy()
@@ -140,7 +151,7 @@ zip_shapes = zip_shapes[['postalCode', 'geometry']]
 zip_shapes.columns = ['zip', 'geometry']
 geo_dict = sns_dict.copy()
 for year in years:
-    geo_dict[year] = zip_shapes.merge(sns_dict[year], on = 'zip')
+    geo_dict[year] = zip_shapes.merge(sns_dict[year], on = 'zip').merge(year_df_dict_copy[year], on = 'zip')
     geo_dict[year]['rank'] = geo_dict[year].vibrancy.rank(method = 'dense')
 
 # writing to files
