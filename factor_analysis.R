@@ -64,7 +64,6 @@ for (i in 2005:2015) {
 
 # combine z-scores using Stouffer's method (sum of all the z-scores/sqrt of total number of observations)
 # apply 45/45/10 weighting to standardized metrics to calculate arts vibrancy score
-# compare all zip codes in 0-100 percentile ranking
 art_vibrancy <- index_weighted %>%
   group_by(zip, year) %>%
   summarize(
