@@ -166,8 +166,11 @@ zip_shapes.postalCode = zip_shapes.postalCode.apply(int)
 zip_shapes = zip_shapes[['postalCode', 'geometry']]
 zip_shapes.columns = ['zip', 'geometry']
 geo_dict = sns_dict.copy()
+fa_df = pd.read_csv('art_vibrancy.csv')
+fa_dict = {}
 for year in years:
-    geo_dict[year] = zip_shapes.merge(sns_dict[year], on = 'zip').merge(year_df_dict_copy[year], on = 'zip')
+    fa_dict[year] = fa_df[fa_df['year'] == year][['zip', 'vibrancy']].rename(index = str, columns = {'vibrancy':'fa_vibrancy'})
+    geo_dict[year] = zip_shapes.merge(sns_dict[year], on = 'zip').merge(year_df_dict_copy[year], on = 'zip').merge(fa_dict[year], on = 'zip')
     geo_dict[year]['rank'] = geo_dict[year].vibrancy.rank(method = 'dense')
 
 # writing to files
