@@ -1,7 +1,6 @@
 # Arts Vibrancy Index
 Arts vibrancy index calculated using metrics and measures outlined in [NCAR Arts Vibrancy Index IV](https://sites.smu.edu/Meadows/NCAR%20VibrancyIndex%20July2018_7.9.pdf)
 
-
 # [Arts Providers](https://github.com/Data-For-Public-Good/arts-vibrancy-index/tree/master/arts-providers)
 ZIP code Business Pattern data collected and disseminated by the US Census Bureau. Arts and cultural organization data aggregated from IRS 990s.
 ## Independent artists
