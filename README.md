@@ -8,7 +8,7 @@ ZIP code Business Pattern data collected and disseminated by the US Census Burea
 Freelance artists primarily engaged in performing in artistic productions, in creating artistic and cultural works or productions, or in providing technical expertise necessary for these productions, aggregated at the zip code level
 ## Arts and culture employees
 ~~Number of people employed by the museum, historical site, theater, dance, music, opera, and other performing arts sectors, as salaried employees or independent contractors, aggregated at the county level~~
-Not available at zip code level so removed from our index
+**Not available at zip code level so removed from our index**
 ## Arts and cultural organizations
 Number of nonprofit organizations in the museum, arts education, community, dance, music, opera, performing arts center, orchestra, theater, multidisciplinary performing arts, or arts alliance and service organization sectors, aggregated at the zip code level
 ## Arts, culture & entertainment firms
