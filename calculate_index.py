@@ -34,6 +34,9 @@ for year in year_df_dict.keys():
 # adding the total nonprofits data
 with open('count_dict.pkl', 'rb') as filename:
     count_dict = pickle.load(filename)
+# this is bad but I'm in a hurry, I'm in the middle of adding 10075 back in to the data, it's missing a 2006 value in the dictionary which causes problems,
+# the quickest thing is to just set it equal to 1
+count_dict[2006][10075] = 1
 for year in year_df_dict.keys():
     year_df_dict[year]['total_nonprofits'] = year_df_dict[year]['zip'].map(count_dict[year])
 
@@ -168,9 +171,13 @@ zip_shapes.columns = ['zip', 'geometry']
 geo_dict = sns_dict.copy()
 fa_df = pd.read_csv('art_vibrancy.csv')
 fa_dict = {}
+mmm_df = pd.read_csv('mentions_updated.csv').rename(index = str, columns = {'zipcode':'zip'})
+mmm_dict = {}
 for year in years:
     fa_dict[year] = fa_df[fa_df['year'] == year][['zip', 'vibrancy']].rename(index = str, columns = {'vibrancy':'fa_vibrancy'})
-    geo_dict[year] = zip_shapes.merge(sns_dict[year], on = 'zip').merge(year_df_dict_copy[year], on = 'zip').merge(fa_dict[year], on = 'zip')
+    mmm_dict[year] = mmm_df[mmm_df['year'] == year]
+    geo_dict[year] = zip_shapes.merge(sns_dict[year], on = 'zip').merge(year_df_dict_copy[year], on = 'zip').merge(fa_dict[year], on = 'zip').merge(mmm_dict[year].drop('year', axis = 'columns'),how = 'left', on = 'zip')
+    geo_dict[year].mentions = geo_dict[year].mentions.fillna(value = 0)
     geo_dict[year]['rank'] = geo_dict[year].vibrancy.rank(method = 'dense')
 
 # writing to files
